@@ -11,18 +11,23 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
             height: 100vh;
             position: relative;
-            filter: grayscale(1000%);
+            filter: grayscale(100%);
+            background-attachment: fixed; /* Keeps background image fixed while scrolling */
         }
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 40%; /* Reduced from 50% to make it smaller */
-            padding: 1rem; /* Reduced from 1.5rem to make it smaller */
+            max-width: 35%;
+            padding: 0.75rem;
             text-align: left;
             width: 100%;
+            opacity: 0; /* Start with hidden state for animation */
+            transition: opacity 0.5s ease-in-out; /* Smooth fade-in effect */
+        }
+        .hero-content.visible {
+            opacity: 1; /* Visible state after loading */
         }
         .gallery-img {
             transition: transform 0.3s ease;
@@ -63,6 +68,12 @@
             margin: 0 auto;
             width: 100%;
         }
+        nav .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: auto;
+            transform: translateX(-20px);
+        }
         nav ul {
             display: flex;
             list-style: none;
@@ -86,18 +97,21 @@
                 height: 40vh;
             }
             .hero-content {
-                max-width: 80%; /* Reduced from 100% to make it smaller on mobile */
-                padding: 0.5rem; /* Reduced from 1rem to make it smaller */
+                max-width: 50%;
+                padding: 0.2rem;
+                margin: 0.5rem;
+                background-color: rgba(0, 0, 0, 0.5);
+                border-radius: 6px;
             }
             .hero-content h1 {
-                font-size: 1.2rem;
+                font-size: 1.0rem;
             }
             .hero-content p {
-                font-size: 0.9rem;
+                font-size: 0.7rem;
             }
             .hero-content a {
-                font-size: 0.8rem;
-                padding: 0.4rem 0.8rem;
+                font-size: 0.6rem;
+                padding: 0.2rem 0.4rem;
             }
             nav {
                 padding: 0.3rem 1rem;
@@ -105,6 +119,10 @@
             nav .container {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            nav .logo-container {
+                margin-right: 0;
+                transform: translateX(-10px);
             }
             nav ul {
                 display: flex;
@@ -179,11 +197,17 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const heroContent = document.querySelector('.hero-content');
+            heroContent.classList.add('visible'); // Trigger fade-in animation on load
+        });
+    </script>
 </head>
 <body class="font-sans text-gray-800">
     <nav class="bg-gray-900 text-white">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center">
+            <div class="logo-container flex items-center">
                 <svg class="header-logo mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                     <path d="M30 80V50H20V90H40V80H60V90H80V50H70V80"/>
                     <path d="M30 50H70V30H50V20H30V30H20V40H80V30H70V20H50V30H30"/>
